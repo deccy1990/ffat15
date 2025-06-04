@@ -1,7 +1,7 @@
-// pages/posts/index.js
 import { getAllPosts } from '../../lib/posts';
 import Link from 'next/link';
 import { useState } from 'react';
+import Head from 'next/head';
 import Navbar from 'components/Navbar';
 
 export async function getStaticProps() {
@@ -18,23 +18,26 @@ export default function PostsPage({ posts }) {
   const [selectedTag, setSelectedTag] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
 
-const filteredPosts = posts.filter(post => {
-  const matchesTag = selectedTag ? post.tags?.includes(selectedTag) : true;
-
-  const lowerQuery = searchQuery.toLowerCase();
-  const matchesSearch =
-    post.title.toLowerCase().includes(lowerQuery) ||
-    post.content?.toLowerCase().includes(lowerQuery) ||
-    post.tags?.some(tag => tag.toLowerCase().includes(lowerQuery));
-
-  return matchesTag && matchesSearch;
-});
+  const filteredPosts = posts.filter(post => {
+    const matchesTag = selectedTag ? post.tags?.includes(selectedTag) : true;
+    const matchesSearch =
+      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (post.tags?.join(' ').toLowerCase().includes(searchQuery.toLowerCase()) ?? false);
+    return matchesTag && matchesSearch;
+  });
 
   return (
     <div>
-      
+      <Head>
+        <title>Posts | Your Blog Name</title>
+        <meta name="description" content="Browse all blog posts on Your Blog Name by tags and search." />
+      </Head>
+
+     
+
       <main className="max-w-3xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold mb-6">All Posts</h1>
+        <h1 className="text-3xl font-bold mb-6">Posts</h1>
 
         {/* Search Input */}
         <div className="mb-6">
@@ -77,10 +80,14 @@ const filteredPosts = posts.filter(post => {
             <p className="text-sm text-gray-500">{post.date}</p>
             <div className="text-sm text-gray-600 mt-1 flex flex-wrap gap-2">
               {post.tags?.map(tag => (
-                <Link key={tag} href={`/tags/${tag}`} className="text-blue-600 hover:underline">
+                <Link
+                  key={tag}
+                  href={`/tags/${tag}`}
+                  className="text-blue-600 hover:underline"
+                >
                   #{tag}
                 </Link>
-              ))}
+              )) || 'none'}
             </div>
           </div>
         ))}

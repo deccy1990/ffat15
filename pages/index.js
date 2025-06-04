@@ -2,6 +2,7 @@
 import { getAllPosts } from '../lib/posts';
 import Link from 'next/link';
 import { useState } from 'react';
+import Head from 'next/head';
 
 
 export async function getStaticProps() {
