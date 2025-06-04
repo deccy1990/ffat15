@@ -2,7 +2,7 @@
 import { getAllPosts } from '../../lib/posts';
 import Link from 'next/link';
 import { useState } from 'react';
-
+import Navbar from 'components/Navbar';
 
 export async function getStaticProps() {
   const posts = getAllPosts();
@@ -16,16 +16,36 @@ export async function getStaticProps() {
 export default function PostsPage({ posts }) {
   const allTags = [...new Set(posts.flatMap(post => post.tags || []))];
   const [selectedTag, setSelectedTag] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredPosts = selectedTag
-    ? posts.filter(post => post.tags?.includes(selectedTag))
-    : posts;
+const filteredPosts = posts.filter(post => {
+  const matchesTag = selectedTag ? post.tags?.includes(selectedTag) : true;
+
+  const lowerQuery = searchQuery.toLowerCase();
+  const matchesSearch =
+    post.title.toLowerCase().includes(lowerQuery) ||
+    post.content?.toLowerCase().includes(lowerQuery) ||
+    post.tags?.some(tag => tag.toLowerCase().includes(lowerQuery));
+
+  return matchesTag && matchesSearch;
+});
 
   return (
     <div>
-     
+      
       <main className="max-w-3xl mx-auto px-6 py-10">
         <h1 className="text-3xl font-bold mb-6">All Posts</h1>
+
+        {/* Search Input */}
+        <div className="mb-6">
+          <input
+            type="text"
+            placeholder="Search posts..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-2 border rounded-md"
+          />
+        </div>
 
         {/* Tag Filter */}
         <div className="flex flex-wrap gap-2 mb-6">
