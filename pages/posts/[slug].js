@@ -2,7 +2,6 @@ import { getPostData } from '../../lib/posts';
 import { remark } from 'remark';
 import html from 'remark-html';
 import Head from 'next/head';
-import Navbar from 'components/Navbar';
 import Giscus from '@giscus/react';
 
 

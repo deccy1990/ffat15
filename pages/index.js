@@ -1,76 +1,42 @@
-// pages/posts/index.js
-import { getAllPosts } from '../lib/posts';
-import Link from 'next/link';
-import { useState } from 'react';
+// pages/index.js
 import Head from 'next/head';
+import Link from 'next/link';
 
-
-export async function getStaticProps() {
-  const posts = getAllPosts();
-  return {
-    props: {
-      posts,
-    },
-  };
-}
-
-export default function PostsPage({ posts }) {
-  const allTags = [...new Set(posts.flatMap(post => post.tags || []))];
-  const [selectedTag, setSelectedTag] = useState(null);
-
-  const filteredPosts = selectedTag
-    ? posts.filter(post => post.tags?.includes(selectedTag))
-    : posts;
-
+export default function HomePage() {
   return (
-    <div>
-      
-      <main className="max-w-3xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold mb-6">Posts</h1>
+    <>
+      <Head>
+        <title>Home | ffat15</title>
+        <meta name="description" content="League of Legends blog" />
+      </Head>
 
-        {/* Tag Filter */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          <button
-            className={`px-3 py-1 rounded-full border ${selectedTag === null ? 'bg-black text-white' : 'bg-white border-gray-300'}`}
-            onClick={() => setSelectedTag(null)}
-          >
-            All
-          </button>
-          {allTags.map(tag => (
-            <button
-              key={tag}
-              onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1 rounded-full border ${selectedTag === tag ? 'bg-black text-white' : 'bg-white border-gray-300'
-                }`}
-            >
-              {tag}
-            </button>
-          ))}
+      <section className="text-center py-20">
+        <h1 className="text-5xl font-bold mb-4">Welcome to ffat15</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+          A blog dedicated to everything <span className="font-semibold">League of Legends</span> —
+          from Jungle strategies, champion breakdowns, patch analysis, to gameplay tips and personal ranked journeys.
+        </p>
+      </section>
+
+      <section className="grid gap-6 max-w-xl mx-auto">
+        <div className="bg-white border border-gray-300 p-6 rounded-xl shadow hover:shadow-md transition">
+          <h2 className="text-2xl font-semibold mb-2">
+            <Link href="/posts/page/1" className="hover:underline">
+              Read Posts
+            </Link>
+          </h2>
+          <p className="text-gray-700">Explore guides, game reviews, and tactical insights.</p>
         </div>
 
-        {/* Post List */}
-        {filteredPosts.map(post => (
-          <div key={post.slug} className="mb-8">
-            <h2 className="text-xl font-semibold">
-              <Link href={`/posts/${post.slug}`} className="hover:underline">
-                {post.title}
-              </Link>
-            </h2>
-            <p className="text-sm text-gray-500">{post.date}</p>
-            <div className="text-sm text-gray-600 mt-1 flex flex-wrap gap-2">
-              {post.tags?.map(tag => (
-                <Link
-                  key={tag}
-                  href={`/tags/${tag}`}
-                  className="text-blue-600 hover:underline"
-                >
-                  #{tag}
-                </Link>
-              )) || 'none'}
-            </div>
-          </div>
-        ))}
-      </main>
-    </div>
+        <div className="bg-white border border-gray-300 p-6 rounded-xl shadow hover:shadow-md transition">
+          <h2 className="text-2xl font-semibold mb-2">
+            <Link href="/about" className="hover:underline">
+              About ffat15
+            </Link>
+          </h2>
+          <p className="text-gray-700">Get to know the jungler behind the keyboard (Nocturne main 👻).</p>
+        </div>
+      </section>
+    </>
   );
 }
