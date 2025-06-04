@@ -3,6 +3,8 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import Head from 'next/head';
 import Navbar from 'components/Navbar';
+import Giscus from '@giscus/react';
+
 
 const getShareUrl = (slug) => `http://localhost:3000/posts/${slug}`;
 
@@ -70,6 +72,22 @@ export default function Post({ post }) {
 
         />
 
+        <Giscus
+          id="comments"
+          repo="deccy1990/ffat15"
+          repoId="R_kgDOO1e4QQ"
+          category="General"
+          categoryId="DIC_kwDOO1e4Qc4CrBcH"
+          mapping="pathname"
+          strict="0"
+          reactionsEnabled="1"
+          emitMetadata="0"
+          inputPosition="bottom"
+          theme="preferred_color_scheme"
+          lang="en"
+          loading="lazy"
+        />
+
         <div className="mt-10">
           <h3 className="text-lg font-semibold mb-2">Share this post:</h3>
           <div className="flex gap-3">
@@ -105,4 +123,6 @@ export default function Post({ post }) {
       </main>
     </div>
   );
+
 }
+
