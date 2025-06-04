@@ -39,9 +39,8 @@ export default function PostsPage({ posts }) {
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1 rounded-full border ${
-                selectedTag === tag ? 'bg-black text-white' : 'bg-white border-gray-300'
-              }`}
+              className={`px-3 py-1 rounded-full border ${selectedTag === tag ? 'bg-black text-white' : 'bg-white border-gray-300'
+                }`}
             >
               {tag}
             </button>
@@ -57,8 +56,16 @@ export default function PostsPage({ posts }) {
               </Link>
             </h2>
             <p className="text-sm text-gray-500">{post.date}</p>
-            <div className="text-sm text-gray-600 mt-1">
-              Tags: {post.tags?.join(', ') || 'none'}
+            <div className="text-sm text-gray-600 mt-1 flex flex-wrap gap-2">
+              {post.tags?.map(tag => (
+                <Link
+                  key={tag}
+                  href={`/tags/${tag}`}
+                  className="text-blue-600 hover:underline"
+                >
+                  #{tag}
+                </Link>
+              )) || 'none'}
             </div>
           </div>
         ))}
