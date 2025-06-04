@@ -1,5 +1,5 @@
 // pages/posts/index.js
-import { getAllPosts } from '../lib/posts';
+import { getAllPosts } from '../../lib/posts';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -23,9 +23,9 @@ export default function PostsPage({ posts }) {
 
   return (
     <div>
-      
+     
       <main className="max-w-3xl mx-auto px-6 py-10">
-        <h1 className="text-3xl font-bold mb-6">Posts</h1>
+        <h1 className="text-3xl font-bold mb-6">All Posts</h1>
 
         {/* Tag Filter */}
         <div className="flex flex-wrap gap-2 mb-6">
@@ -39,8 +39,7 @@ export default function PostsPage({ posts }) {
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`px-3 py-1 rounded-full border ${selectedTag === tag ? 'bg-black text-white' : 'bg-white border-gray-300'
-                }`}
+              className={`px-3 py-1 rounded-full border ${selectedTag === tag ? 'bg-black text-white' : 'bg-white border-gray-300'}`}
             >
               {tag}
             </button>
@@ -58,14 +57,10 @@ export default function PostsPage({ posts }) {
             <p className="text-sm text-gray-500">{post.date}</p>
             <div className="text-sm text-gray-600 mt-1 flex flex-wrap gap-2">
               {post.tags?.map(tag => (
-                <Link
-                  key={tag}
-                  href={`/tags/${tag}`}
-                  className="text-blue-600 hover:underline"
-                >
+                <Link key={tag} href={`/tags/${tag}`} className="text-blue-600 hover:underline">
                   #{tag}
                 </Link>
-              )) || 'none'}
+              ))}
             </div>
           </div>
         ))}
