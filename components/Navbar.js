@@ -11,8 +11,8 @@ export default function Navbar() {
         <Link href="/posts/page/1" legacyBehavior>
           <a className="text-black hover:underline">Posts</a>
         </Link>
-        <Link href="/about" legacyBehavior>
-          <a className="text-black hover:underline">placeholder</a>
+        <Link href="/rotation" legacyBehavior>
+          <a className="text-black hover:underline">Free Champion Rotation</a>
         </Link>
                 <Link href="/about" legacyBehavior>
           <a className="text-black hover:underline">placeholder</a>

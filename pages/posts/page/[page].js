@@ -3,6 +3,7 @@ import { getAllPosts } from '../../../lib/posts';
 import Link from 'next/link';
 import Head from 'next/head';
 import { POSTS_PER_PAGE } from '../../../constants/postsPerPage';
+import PostCard from '/components/PostCard';
 
 export async function getStaticPaths() {
   const posts = getAllPosts();
@@ -37,15 +38,10 @@ export default function PaginatedPosts({ posts, currentPage, totalPages }) {
       </Head>
       <h1 className="text-3xl font-bold mb-6">Posts – Page {currentPage}</h1>
 
+      {/* Render posts */}
+
       {posts.map(post => (
-        <div key={post.slug} className="mb-6">
-          <h2 className="text-xl font-semibold">
-            <Link href={`/posts/${post.slug}`} className="hover:underline">
-              {post.title}
-            </Link>
-          </h2>
-          <p className="text-sm text-gray-500">{post.date}</p>
-        </div>
+        <PostCard key={post.slug} post={post} />
       ))}
 
       {/* Pagination Navigation */}

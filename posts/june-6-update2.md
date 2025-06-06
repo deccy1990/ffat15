@@ -1,5 +1,5 @@
 ---
-title: "June 4 update 2"
+title: "June 1 update 2"
 date: "2025-06-01"
 tags: ["nextjs", "blog"]
 thumbnail: "/images/posts/my-awesome-post.jpg"

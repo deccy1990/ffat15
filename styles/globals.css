@@ -23,3 +23,22 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.site-banner {
+  background: url('/images/banner.png') no-repeat center center;
+  background-size: cover;
+  height: 600px;
+  position: static;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-text {
+  font-size: 1rem;
+  color: rgb(3, 0, 0);
+  font-weight: 900;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+
+
